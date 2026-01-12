@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Student Help Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="auth-body">
+
+<div class="card auth-card">
+  <h2>Welcome Back 👋</h2>
+  <p>Login to continue</p>
+
+  <button type="button" class="auth-btn google" onclick="googleLogin()">Continue with Google</button>
+  <p style="margin:10px 0;">or</p>
+  <input class="auth-input" id="email" type="email" inputmode="email" name="email" autocomplete="email" placeholder="Email">
+  <input class="auth-input" id="password" type="password" name="password" autocomplete="current-password" placeholder="Password">
+
+  <button type="button" class="auth-btn" onclick="login()">Login</button>
+  <p id="msg"></p>
+
+  <p>New user? <a href="Signup.html">Create account</a></p>
+</div>
+
+<script type="module" src="auth.js"></script>
+
+<script>
+  // Debug helper: show which element receives clicks and ensure inputs get focus
+  (function(){
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+
+    document.addEventListener('click', (e) => {
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      console.log('Clicked element:', el);
+    }, true);
+
+    if(email){
+      email.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        console.log('Email clicked — focusing');
+        email.focus();
+      });
+    }
+
+    if(password){
+      password.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        password.focus();
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
+
+
+
