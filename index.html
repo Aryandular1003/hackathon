@@ -16,6 +16,8 @@
     <input type="text" id="searchInput" placeholder="Search scholarships, exams, links...">
   </div>
 
+  <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()">🌙</button>
+
   <div id="authButtons">
     <a href="login.html" class="nav-btn">Login</a>
     <a href="Signup.html" class="nav-btn">Signup</a>
@@ -76,6 +78,8 @@ window.logout = function () {
   signOut(auth).then(() => location.reload());
 };
 </script>
+
+<script src="theme.js"></script>
 
 </body>
 </html>

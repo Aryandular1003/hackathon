@@ -1,12 +1,55 @@
 :root {
+  /* Dark (default) theme colors */
   --primary: #6366f1;
   --secondary: #22c55e;
   --pink: #ec4899;
+
   --bg1: #020617;
   --bg2: #0f172a;
   --bg3: #1e293b;
-  --card-bg: rgba(255,255,255,0.08);
-  --text: #e5e7eb;
+  --bg-body: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+
+  --text: #e6eef8;        /* main text (bright) */
+  --heading: #f8fafc;     /* headings (stronger) */
+  --muted: #9aa6b3;       /* secondary text (muted but readable) */
+
+  --card-bg: rgba(8,12,20,0.72);          /* stronger card base for contrast */
+  --card-border: rgba(255,255,255,0.06);
+  --card-shadow: 0 12px 30px rgba(0,0,0,0.55);
+
+  --navbar-bg: rgba(10,14,22,0.6);
+  --input-bg: rgba(255,255,255,0.06);
+  --input-placeholder: #9aa6b3;
+  --link-color: #cbd5f5;
+  --filter-bg: rgba(255,255,255,0.06);
+  --nav-btn-bg: rgba(255,255,255,0.06);
+}
+
+/* Light theme overrides */
+html[data-theme="light"] {
+  --primary: #4f46e5;
+  --secondary: #16a34a;
+  --pink: #db2777;
+
+  --bg1: #ffffff;
+  --bg2: #f5f7fa;
+  --bg3: #eef2f6;
+  --bg-body: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+
+  --text: #0f1724;
+  --heading: #0b1220;
+  --muted: #475569;
+
+  --card-bg: rgba(255,255,255,0.95);
+  --card-border: rgba(2,6,23,0.06);
+  --card-shadow: 0 8px 20px rgba(2,6,23,0.08);
+
+  --navbar-bg: rgba(255,255,255,0.95);
+  --input-bg: rgba(2,6,23,0.06);
+  --input-placeholder: #6b7280;
+  --link-color: #374151;
+  --filter-bg: rgba(2,6,23,0.06);
+  --nav-btn-bg: rgba(2,6,23,0.06);
 }
 
 * {
@@ -15,10 +58,11 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+  background: var(--bg-body);
   color: var(--text);
   margin: 0;
   padding-bottom: 60px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* ---------- NAVBAR ---------- */
@@ -28,11 +72,12 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 6%;
-  background: rgba(15,23,42,0.7);
+  background: var(--navbar-bg);
   backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background 0.3s ease;
 }
 
 .logo {
@@ -53,12 +98,13 @@ body {
   border: none;
   width: 280px;
   outline: none;
-  background: rgba(255,255,255,0.15);
-  color: white;
+  background: var(--input-bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .search-container input::placeholder {
-  color: #cbd5f5;
+  color: var(--input-placeholder);
 }
 
 /* ---------- HERO ---------- */
@@ -78,8 +124,12 @@ body {
 }
 
 .hero p {
-  color: #cbd5f5;
+  color: var(--muted);
   font-size: 1.1rem;
+}
+
+html[data-theme="light"] .hero p {
+  color: #6b7280;
 }
 
 /* ---------- FILTER BAR ---------- */
@@ -96,16 +146,21 @@ body {
   padding: 10px 22px;
   border-radius: 25px;
   border: none;
-  background: rgba(255,255,255,0.12);
+  background: var(--filter-bg);
   cursor: pointer;
-  color: white;
-  transition: 0.3s ease;
+  color: var(--text);
+  transition: 0.2s ease;
   font-weight: 500;
+}
+
+html[data-theme="light"] .filter-btn {
+  background: rgba(0,0,0,0.1);
+  color: #1f2937;
 }
 
 .filter-btn.active,
 .filter-btn:hover {
-  background: linear-gradient(90deg, #6366f1, #22c55e);
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
   color: #020617;
 }
 
@@ -124,22 +179,27 @@ body {
   background: var(--card-bg);
   padding: 22px;
   border-radius: 20px;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
+}
+
+html[data-theme="light"] .card {
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.12), transparent);
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.02), transparent);
   opacity: 0;
-  transition: 0.4s;
-  pointer-events: none;   /* ✅ FIX: allows clicks */
+  transition: opacity 0.35s ease;
+  pointer-events: none;
 }
 
 .card:hover::before {
@@ -153,13 +213,21 @@ body {
 .card h3 {
   margin: 10px 0;
   font-size: 1.25rem;
-  color: white;
+  color: var(--heading);
+}
+
+html[data-theme="light"] .card h3 {
+  color: #111827;
 }
 
 .card p {
-  color: #cbd5f5;
+  color: var(--muted);
   font-size: 0.95rem;
   margin-bottom: 18px;
+}
+
+html[data-theme="light"] .card p {
+  color: #4b5563;
 }
 
 /* ---------- BADGES ---------- */
@@ -172,6 +240,7 @@ body {
   font-weight: 700;
   margin-bottom: 12px;
   letter-spacing: 0.5px;
+  color: #fff;
 }
 
 .type-scholarship {
@@ -228,13 +297,14 @@ body {
   border-radius:12px;
   border:none;
   margin-bottom:10px;
-  background:rgba(255,255,255,0.15);
-  color:white;
+  background: var(--input-bg);
+  color: var(--text);
   outline:none;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .auth-input::placeholder{
-  color:#cbd5f5;
+  color: var(--input-placeholder);
 }
 
 .auth-btn{
@@ -263,16 +333,21 @@ body {
 .nav-btn{
   padding:8px 16px;
   border-radius:20px;
-  background:rgba(255,255,255,0.15);
-  color:white;
+  background: var(--nav-btn-bg);
+  color: var(--text);
   text-decoration:none;
   margin-left:8px;
   border:none;
   cursor:pointer;
 }
 
+html[data-theme="light"] .nav-btn {
+  background: rgba(0,0,0,0.1);
+  color: #1f2937;
+}
+
 .nav-btn:hover{
-  background:linear-gradient(90deg,#6366f1,#22c55e);
+  background:linear-gradient(90deg,var(--primary),var(--secondary));
   color:#020617;
 }
 
@@ -327,4 +402,27 @@ body {
     margin-right:10px;
     vertical-align:middle;
     border-radius: 1rem;
+}
+
+
+
+.theme-toggle-btn {
+  padding: 8px 12px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  margin-left: 8px;
+}
+
+.theme-toggle-btn:hover {
+  background: linear-gradient(90deg, #6366f1, #22c55e);
+  transform: scale(1.1);
+}
+
+html[data-theme="light"] .theme-toggle-btn {
+  color: #1f2937;
 }
