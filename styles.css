@@ -13,7 +13,7 @@
   --heading: #f8fafc;     /* headings (stronger) */
   --muted: #9aa6b3;       /* secondary text (muted but readable) */
 
-  --card-bg: rgba(8,12,20,0.72);          /* stronger card base for contrast */
+  --card-bg: rgba(8,12,20,0.72);
   --card-border: rgba(255,255,255,0.06);
   --card-shadow: 0 12px 30px rgba(0,0,0,0.55);
 
@@ -23,9 +23,13 @@
   --link-color: #cbd5f5;
   --filter-bg: rgba(255,255,255,0.06);
   --nav-btn-bg: rgba(255,255,255,0.06);
+
+  /* theme-specific helpers */
+  --badge-text: #ffffff;        /* badge text color in dark theme */
+  --auth-btn-text: #ffffff;     /* auth button text in dark theme */
+  --toggle-bg: rgba(255,255,255,0.06);
 }
 
-/* Light theme overrides */
 html[data-theme="light"] {
   --primary: #4f46e5;
   --secondary: #16a34a;
@@ -50,6 +54,10 @@ html[data-theme="light"] {
   --link-color: #374151;
   --filter-bg: rgba(2,6,23,0.06);
   --nav-btn-bg: rgba(2,6,23,0.06);
+
+  --badge-text: #052e16;      /* dark badge text on light theme */
+  --auth-btn-text: #020617;   /* dark auth button text on light theme */
+  --toggle-bg: rgba(2,6,23,0.06);
 }
 
 * {
